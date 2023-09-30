@@ -1,0 +1,76 @@
+<!-- option-trading.component.html -->
+<head></head>
+<script>
+  window.onload = function() {
+    // Set the desired width and height
+    window.resizeTo(400, 300); // Replace with your preferred width and height
+  };
+</script>
+<body>
+<div class="option-trading">
+  <h2 class="title">Fyers App</h2>
+  <!-- <label for="accounts">Select Accounts:</label>
+  <div *ngFor="let account of accounts">
+    <label>
+      <input type="checkbox" [(ngModel)]="account.selected" (change)="onCheckboxChange()">
+      {{ account.name }}
+    </label>
+  </div> -->
+  <div class="checkbox-container" id="slenabled">STOP LOSS AT-2K &nbsp;&nbsp;<input type="checkbox" [(ngModel)]="slenabled" (change)="onCheckboxChange()"></div>
+  
+  <label for="index">INDEX:</label>
+  <select id="indexSelectOptions" [(ngModel)]="selectedIndex" (change)="onIndexSelection()">
+    <option *ngFor="let option of indexOptions" [value]="option">{{ option }}</option>
+  </select>
+  <label for="expiry">EXPIRY:</label>
+  <select id="expiry" [(ngModel)]="selectedExpiry">
+    <option *ngFor="let option of indexExpiry" [value]="option">{{ option }}</option>
+  </select>
+  <div class="quantity-container">
+    <label for="quantity">QUANTITY:</label> <input type="text" (input)="updateQuantity($event)"
+      [(ngModel)]="inputQuantity">
+    <p [ngStyle]="setMessageColor(response)" id="quantity">{{quantityFromBackend}}</p>
+  </div>
+  <label for="strike">OPTION STRIKE:</label>
+  <select id="strike" [(ngModel)]="selectedStrike" autofocus>
+    <option *ngFor="let option of indexStrike" [value]="option">{{ option }}</option>
+  </select>
+  <div>
+    <table>
+      <tr>
+        <td width="200px" id="balance"><p>AV: {{funds}}</p></td>
+        <td><p id="balance">P&L: {{ profitOrLoss}}</p></td>
+      </tr>
+    </table>
+  </div>
+  <table>
+    <tr>
+      <td>
+        <button (click)="onCallBuy()" class="my-button">Call Buy(C)</button>
+      </td>
+      <td>
+        <button id="sell" (click)="onCallSell()" class="my-button">Call Sell(X)</button>
+      </td>
+      </tr>
+      <tr>
+      <td>
+        <button (click)="onPutBuy()" class="my-button">Put Buy(P)</button>
+      </td>
+      <td>
+        <button id="sell" (click)="onPutSell()" class="my-button">Put Sell(O)</button>
+      </td>
+      
+    </tr>
+    <tr>
+      <td>
+        <button (click)="onExitPositions()" class="my-button1">Exit All Positions(E)</button>
+      </td>
+      <td>
+          <button (click)="cancelPendingOrders()" class="my-button1">Orders Cancel(Z)</button>
+      </td>
+    </tr>
+  </table>
+
+  <p [ngStyle]="setMessageColor(response)" id="message" >{{response}}</p>
+</div>
+</body>
