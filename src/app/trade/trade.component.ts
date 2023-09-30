@@ -22,10 +22,16 @@ export class TradeComponent implements AfterViewInit {
     }
   }
 
+  
   indexOptions: string[] = [];
   indexExpiry: string[] = [];
   indexStrike: number[] = [];
   selectedAccounts: any[] = [];
+  mtmlockvalue: number =0;
+  
+
+
+
   accounts = [
     { name: 'Main', selected: true },
     { name: 'Algo', selected: false },
@@ -43,6 +49,7 @@ export class TradeComponent implements AfterViewInit {
   funds: number =0;
   profitOrLoss: number =0;
   slenabled:boolean=false;
+  mtmenabled:boolean = false;
 
 
   cancelPendingOrders() {
@@ -75,6 +82,8 @@ export class TradeComponent implements AfterViewInit {
   onCheckboxChange(){
     console.log(this.slenabled)
   }
+
+  
 
   ngOnInit(){
     this.traderService.index_options().subscribe(
@@ -283,6 +292,15 @@ export class TradeComponent implements AfterViewInit {
        }
      );
     
+  }
+
+  onMTMChange(){
+    interval(1000).subscribe(() => {
+      console.log('MTM executing every 1 sec: ',this.mtmlockvalue);
+      if(this.mtmenabled && this.mtmlockvalue !== 0 && this.profitOrLoss >= this.mtmlockvalue){
+        this.onExitPositions()
+      }
+    });
   }
 
   onExitPositions() {

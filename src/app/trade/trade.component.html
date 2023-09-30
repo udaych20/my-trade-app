@@ -8,7 +8,7 @@
 </script>
 <body>
 <div class="option-trading">
-  <h2 class="title">Fyers App</h2>
+  <h2 class="title" title="This application will help to trade easy and its best suitable for scalpers">Fyers App</h2>
   <!-- <label for="accounts">Select Accounts:</label>
   <div *ngFor="let account of accounts">
     <label>
@@ -16,8 +16,12 @@
       {{ account.name }}
     </label>
   </div> -->
-  <div class="checkbox-container" id="slenabled">STOP LOSS AT-2K &nbsp;&nbsp;<input type="checkbox" [(ngModel)]="slenabled" (change)="onCheckboxChange()"></div>
-  
+  <div class="checkbox-container" id="slenabled">
+    <label title="tick here to save your funds">SL -2K:</label> &nbsp;&nbsp;<input type="checkbox" [(ngModel)]="slenabled" (change)="onCheckboxChange()">
+    <label class="lable-mtm" title="tick here to lock you profit">P Lock:</label>
+    <input type="checkbox" [(ngModel)]="mtmenabled" (change)="onMTMChange()" title="tick here to lock you profit">
+    <input class="mtmbox" type="number" [(ngModel)]="mtmlockvalue" pattern="[0-9]*" title="Only numbers are allowed" >
+  </div>
   <label for="index">INDEX:</label>
   <select id="indexSelectOptions" [(ngModel)]="selectedIndex" (change)="onIndexSelection()">
     <option *ngFor="let option of indexOptions" [value]="option">{{ option }}</option>
@@ -27,19 +31,19 @@
     <option *ngFor="let option of indexExpiry" [value]="option">{{ option }}</option>
   </select>
   <div class="quantity-container">
-    <label for="quantity">QUANTITY:</label> <input type="text" (input)="updateQuantity($event)"
-      [(ngModel)]="inputQuantity">
-    <p [ngStyle]="setMessageColor(response)" id="quantity">{{quantityFromBackend}}</p>
+    <label for="quantity">LOTS:</label> <input class="quantity-class" type="number" (input)="updateQuantity($event)"
+      [(ngModel)]="inputQuantity" title="Only numbers are allowed">
+    <p [ngStyle]="setMessageColor(response)" id="quantity">Quantity:&nbsp;&nbsp; {{quantityFromBackend}}</p>
   </div>
   <label for="strike">OPTION STRIKE:</label>
-  <select #myDropdown id="strike" [(ngModel)]="selectedStrike" autofocus>
+  <select #myDropdown id="strike" [(ngModel)]="selectedStrike" autofocus title="select strike to place order">
     <option *ngFor="let option of indexStrike" [value]="option">{{ option }}</option>
   </select>
   <div>
     <table>
       <tr>
-        <td width="200px" id="balance"><p>AV: {{funds}}</p></td>
-        <td><p id="balance">P&L: {{ profitOrLoss}}</p></td>
+        <td width="200px" id="balance" title="Your Account Balance"><p>AV: {{funds}}</p></td>
+        <td><p id="balance"  title="Your Profit and loss">P&L: {{ profitOrLoss}}</p></td>
       </tr>
     </table>
   </div>

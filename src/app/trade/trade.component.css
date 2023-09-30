@@ -27,8 +27,7 @@
 }
 
 /* Style select boxes */
-.option-trading select,
-.option-trading input[type="text"] {
+.option-trading select {
   width: 100%;
   padding: 8px;
   border: 1px solid #ccc;
@@ -66,12 +65,12 @@
 .quantity-container {
   display: flex;
   align-items: center;
-  margin-right: 10px;
+  margin-right: 0px;
 }
 
 .quantity-container label {
   flex: 30;
-  text-align: right;
+  text-align: left;
   margin-right: 10px;
 }
 
@@ -134,17 +133,38 @@ strong {
 }
 .checkbox-container{
   display: flex;
-  align-items: center; /* Vertically center the label and checkbox */
+  align-items: center; 
   margin-bottom: 10px;
 }
 #slenabled {
-  margin-right: 200px; 
+  /* margin-right: 100px;  */
+  /* margin-bottom: 10px; */
+  /* margin-top: 50px; */
+}
+.checkbox-container input {
+  width: 40px;
+  padding: 8px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
   margin-bottom: 10px;
 }
+
+.quantity-class {
+  width: 100px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
 #balance {
   color: green; /* Set the text color to green */
 }
 #quantity {
   color: rgb(89, 0, 255); /* Set the text color to green */
   margin-bottom: 15px;
+}
+
+.lable-mtm {
+  margin-left: 100px; 
 }
