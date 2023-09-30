@@ -123,6 +123,7 @@ export class TradeComponent implements AfterViewInit {
       this.profitOrLoss = Math.trunc(data.overall.pl_total);
       });
     this.quantityFromBackend = this.inputQuantity * 15;
+    this.alert_closing_time()
   }
 
   printRange(centerValue: number, range: number, frequency: number) {
@@ -337,6 +338,28 @@ export class TradeComponent implements AfterViewInit {
         this.quantityFromBackend = this.inputQuantity * 40;
       }
 
+  }
+
+  alert_closing_time() {
+    // Get the current date and time
+    const now = new Date();
+
+    // Calculate the time until the next 3:05 PM
+    const nextAlertTime = new Date(now);
+    nextAlertTime.setHours(15, 5, 0, 0); // Set to 3:05 PM today
+
+    if (nextAlertTime < now) {
+      // If the calculated time is in the past, set it to tomorrow
+      nextAlertTime.setDate(nextAlertTime.getDate() + 1);
+    }
+
+    // Calculate the time difference in milliseconds
+    const timeUntilNextAlert = nextAlertTime.getTime() - now.getTime();
+
+    // Set a setTimeout to trigger an alert at the calculated time
+    setTimeout(() => {
+      alert('Closing Time - all intraday alerts will reject.');
+    }, timeUntilNextAlert);
   }
 
 }
