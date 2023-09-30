@@ -32,7 +32,7 @@
     <p [ngStyle]="setMessageColor(response)" id="quantity">{{quantityFromBackend}}</p>
   </div>
   <label for="strike">OPTION STRIKE:</label>
-  <select id="strike" [(ngModel)]="selectedStrike" autofocus>
+  <select #myDropdown id="strike" [(ngModel)]="selectedStrike" autofocus>
     <option *ngFor="let option of indexStrike" [value]="option">{{ option }}</option>
   </select>
   <div>

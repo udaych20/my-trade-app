@@ -1,10 +1,8 @@
-import { Component,HostListener  } from '@angular/core';
+import { AfterViewInit, Component,HostListener  } from '@angular/core';
 import { TradeServiceService } from '../trade-service.service';
-import { OnInit, OnDestroy } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Subscription, interval } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
-
+import { Renderer2, ViewChild, ElementRef } from '@angular/core';
 
 
 @Component({
@@ -12,9 +10,17 @@ import { switchMap } from 'rxjs/operators';
   templateUrl: './trade.component.html',
   styleUrls: ['./trade.component.css']
 })
-export class TradeComponent {
+export class TradeComponent implements AfterViewInit {
+  @ViewChild('strike') strike!: ElementRef;
+
+
   private subscription: Subscription | undefined;
-  constructor(private traderService: TradeServiceService){}
+  constructor(private traderService: TradeServiceService,private renderer: Renderer2){}
+  ngAfterViewInit(): void {
+    if (this.strike) {
+      this.strike.nativeElement.focus();
+    }
+  }
 
   indexOptions: string[] = [];
   indexExpiry: string[] = [];
@@ -33,7 +39,7 @@ export class TradeComponent {
   selectedStrike: string = "";
   response: string = "";
   quantityFromBackend: number =0;
-  inputQuantity: number = 20;
+  inputQuantity: number = 18;
   funds: number =0;
   profitOrLoss: number =0;
   slenabled:boolean=false;
@@ -138,7 +144,13 @@ export class TradeComponent {
     if (event.target && event.target.value !== null) {
       const inputValue = parseFloat(event.target.value);
       if (!isNaN(inputValue)) {
-        this.quantityFromBackend = this.inputQuantity * 15;
+        if (this.selectedIndex === "BANKNIFTY"){
+          this.quantityFromBackend = this.inputQuantity * 15;
+        }else if(this.selectedIndex === "NIFTY50"){
+          this.quantityFromBackend = this.inputQuantity * 50;
+        } else if(this.selectedIndex === "FINNIFTY"){
+          this.quantityFromBackend = this.inputQuantity * 40;
+        }
       } else {
         this.quantityFromBackend = 0; // Handle invalid input
       }
@@ -171,6 +183,9 @@ export class TradeComponent {
     }
     if (event.keyCode === 90) {
       this.cancelPendingOrders()
+    }
+    if(event.keyCode === 65){
+      this.strike.nativeElement.focus()
     }
   }
 
@@ -223,6 +238,7 @@ export class TradeComponent {
         this.onExitPositions()
       }
     });
+  
   }
 
   ngOnDestroy() {
@@ -247,6 +263,7 @@ export class TradeComponent {
          this.response = "Internal Server Error";
        }
      );
+  
   }
 
   onPutSell() {
@@ -264,6 +281,7 @@ export class TradeComponent {
          this.response = "Internal Server Error";
        }
      );
+    
   }
 
   onExitPositions() {
@@ -310,6 +328,14 @@ export class TradeComponent {
         console.error('Error fetching index options:', error);
       }
       );
+
+      if (this.selectedIndex === "BANKNIFTY"){
+        this.quantityFromBackend = this.inputQuantity * 15;
+      }else if(this.selectedIndex === "NIFTY50"){
+        this.quantityFromBackend = this.inputQuantity * 50;
+      } else if(this.selectedIndex === "FINNIFTY"){
+        this.quantityFromBackend = this.inputQuantity * 40;
+      }
 
   }
 

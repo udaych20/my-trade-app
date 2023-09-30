@@ -22,7 +22,9 @@ export class TradeServiceService {
 
   onCallBuy(selectedIndex: string,selectedExpiry: string,selectedStrike: string,optionType:string,quantity: number,buyOrSell:number) {
     const apiEndpoint = `${environment.apiUrl}/call-buy`;
-    
+    if(selectedIndex === "NIFTY50"){
+      selectedIndex = "NIFTY"
+    }
     // You can pass any data you need to the API in the request body.
     // For example, you can create an object with the selected values.
     const requestData = {
