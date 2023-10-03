@@ -141,13 +141,31 @@ strong {
   /* margin-bottom: 10px; */
   /* margin-top: 50px; */
 }
-.checkbox-container input {
+.checkbox-container input{
   width: 40px;
   padding: 8px;
   border: 2px solid #ccc;
-  border-radius: 4px;
-  margin-bottom: 10px;
+  /* border-radius: 4px; */
+  /* margin-bottom: 10px; */
 }
+
+.checkbox-container .mtmbox {
+  width: 60px;
+  padding: 8px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  /* margin-bottom: 10px; */
+}
+
+.mtmbox {
+  width: 60px;
+  padding: 8px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  /* margin-bottom: 10px; */
+}
+
+
 
 .quantity-class {
   width: 100px;
